@@ -1,4 +1,5 @@
 import express = require('express')
+import { v4 } from 'public-ip'
 import validator from 'validator'
 import ApiStatusCodes from '../../../api/ApiStatusCodes'
 import BaseApi from '../../../api/BaseApi'
@@ -358,6 +359,29 @@ router.post('/nodes/', function (req, res, next) {
             const msg = 'Docker node is successfully joined.'
             Logger.d(msg)
             res.send(new BaseApi(ApiStatusCodes.STATUS_OK, msg))
+        })
+        .catch(ApiStatusCodes.createCatcher(res))
+})
+
+router.get('/join/token', function (req, res, next) {
+    return Promise.resolve()
+        .then(function () {
+            let manager = req.query.manager
+            if (manager) {
+                manager = manager.toString().trim()
+            }
+            return DockerApi.get().getJoinToken(manager === "1" || manager == "true")
+        })
+        .then(async function (token) {
+            const baseApi = new BaseApi(
+                ApiStatusCodes.STATUS_OK,
+                'Join token is received'
+            )
+            baseApi.data = {
+                token: token,
+                ip: await v4()
+            }
+            res.send(baseApi)
         })
         .catch(ApiStatusCodes.createCatcher(res))
 })

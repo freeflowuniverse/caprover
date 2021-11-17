@@ -18,7 +18,7 @@ RUN npm ci && \
 
 # Build frontend code using a fixed hash commit.
 
-ENV FRONTEND_COMMIT_HASH 92b5e5d45aa14ed8d34e7e17722b5d87c0476620
+ENV FRONTEND_COMMIT_HASH 068818c9fe28b56c615bb4ac779c86731e0e82bb
 
 # armV7 fails: https://github.com/yarnpkg/yarn/issues/5259 https://github.com/nodejs/docker-node/issues/1335
 RUN curl -Iv https://registry.yarnpkg.com/@ant-design/icons-svg/-/icons-svg-4.1.0.tgz && \

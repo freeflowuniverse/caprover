@@ -18,7 +18,7 @@ RUN npm ci && \
 
 # Build frontend code using a fixed hash commit.
 
-ENV FRONTEND_COMMIT_HASH 71fd7fd5641a570a550dea14d249f4a633250f15
+ENV FRONTEND_COMMIT_HASH 1885738289fc87c415aa688e6f4aae5df5df236c
 
 # armV7 fails: https://github.com/yarnpkg/yarn/issues/5259 https://github.com/nodejs/docker-node/issues/1335
 RUN curl -Iv https://registry.yarnpkg.com/@ant-design/icons-svg/-/icons-svg-4.1.0.tgz && \
@@ -26,7 +26,7 @@ RUN curl -Iv https://registry.yarnpkg.com/@ant-design/icons-svg/-/icons-svg-4.1.
     git clone https://github.com/freeflowuniverse/caprover-frontend.git -b tfgrid && \
     cd caprover-frontend && \
     git reset --hard ${FRONTEND_COMMIT_HASH} && \
-    npm install && echo "Installation finished" && \
+    yarn install && echo "Installation finished" && \
     npm run-script build && echo "Building finished" && \
     mv ./build ../../app/dist-frontend && \
     cd / && \
